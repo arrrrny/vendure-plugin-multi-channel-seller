@@ -1,13 +1,10 @@
+import { Channel } from "@vendure/core";
+
 /**
- * These are the configuration options for the plugin.
- *
- * @category Plugin
+ * @description
+ * The plugin can be configured using the following options:
  */
-export interface ExampleOptions {
-  /**
-   * This is a dummy option used to illustrate how options can be set by the plugin
-   * consumer, by calling `ExamplePlugin.init({ enabled: true })`, and then
-   * the option can be used inside your services, resolvers etc.
-   */
-  enabled: boolean;
+export interface PluginInitOptions {
+  // reserved to be used later
+  defaultChannel?: Channel;
 }

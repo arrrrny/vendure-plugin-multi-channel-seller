@@ -1,2 +1,4 @@
-export const loggerCtx = "ExamplePlugin";
-export const PLUGIN_INIT_OPTIONS = Symbol("PLUGIN_INIT_OPTIONS");
+export const MULTI_CHANNEL_SELLER_PLUGIN_OPTIONS = Symbol(
+  "MULTI_CHANNEL_SELLER_PLUGIN_OPTIONS",
+);
+export const loggerCtx = "MultiChannelSellerPlugin";
