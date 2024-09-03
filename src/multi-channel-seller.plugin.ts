@@ -30,7 +30,7 @@ import { ChannelEntityResolver } from "./api/channel-entity.resolver";
 
   shopApiExtensions: {
     schema: shopApiExtensions,
-    resolvers: [ChannelEntityResolver],
+    resolvers: [ChannelEntityResolver,ProductVariantEntityResolver],
   },
   adminApiExtensions: {
     schema: adminApiExtensions,
