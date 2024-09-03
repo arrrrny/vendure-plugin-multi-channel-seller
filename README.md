@@ -1,36 +1,119 @@
-# Vendure plugin template
+# Vendure Multi-Channel Seller Plugin
 
-1. Copy this directory and rename to `vendure-plugin-YOUR-PLUGIN-NAME`
-2. Update the `name` and `description` field in `package.json`
-3. Update this Readme: What does the plugin do? How can someone use your plugin in their project?
-4. Run `npm install` to install the dependencies
-5. Run `npm run start` to start the server
+This plugin extends Vendure to support multiple sellers across different channels, allowing for more flexible pricing and seller management in multi-channel e-commerce setups.
 
-The admin is now available at `http://localhost:3050/admin`. Login with _superadmin/superadmin_
+## Features
 
-The shop GraphQL `http://localhost:3050/shop-api`. Here you can test your custom GraphQL query:
+- Associate sellers with specific channels
+- Set custom prices for product variants per channel and seller
+- Extended GraphQL API for managing channel sellers and prices
+- Automatic price resolution based on the current channel and seller context
+
+## Installation
+
+```bash
+npm install vendure-plugin-multi-channel-seller
+```
+
+## Configuration
+
+Add the plugin to your Vendure config:
+
+```typescript
+import { MultiChannelSellerPlugin } from 'vendure-plugin-multi-channel-seller';
+
+export const config: VendureConfig = {
+  // ... other config
+  plugins: [
+    MultiChannelSellerPlugin,
+    // ... other plugins
+  ],
+};
+```
+
+## Usage
+
+### Managing Channel Sellers
+
+Use the Admin API to create, update, and delete channel sellers:
+
 ```graphql
-{
-  exampleQuery
+mutation {
+  createChannelSeller(input: {
+    code: "SELLER1_CHANNEL1",
+    sellerId: "1",
+    channelId: "1"
+  }) {
+    id
+    code
+  }
 }
 ```
 
-## Testing
+### Setting Channel Prices
 
-1. Run `npm run test` to run the e2e test.
-2. Don't forget to implement your own!
+Set custom prices for product variants per channel and seller:
 
-## Publishing to NPM
+```graphql
+mutation {
+  createChannelPrice(input: {
+    basePriceId: "1",
+    channelSellerId: "1",
+    currencyCode: USD,
+    price: 1999
+  }) {
+    id
+    price
+  }
+}
+```
 
-1. Make sure you are [logged in to NPM](https://docs.npmjs.com/cli/v9/commands/npm-login)
-2. `npm run build`
-3. `npm publish`
+### Querying Channel Sellers and Prices
 
-That's it!
+Fetch channel sellers and prices using the extended API:
 
-(Maybe share your accomplishments in the [Vendure Discord](https://vendure.io/community)?
+```graphql
+query {
+  channelSellers {
+    items {
+      id
+      code
+      seller {
+        id
+        name
+      }
+      channel {
+        id
+        code
+      }
+    }
+  }
+}
+```
 
-## Next steps
+```graphql
+query {
+  productVariant(id: "1") {
+    name
+    price
+    channelPrices {
+      price
+      channelSeller {
+        code
+      }
+    }
+  }
+}
+```
 
-1. Check out [the docs](https://docs.vendure.io/guides/developer-guide/plugins/) to see the possibilities of a plugin
-2. Check out [GraphQL codegen](https://the-guild.dev/graphql/codegen) to generate Typescript types for your custom GraphQL types
+## API Extensions
+
+This plugin extends both the Admin API and Shop API with new types and operations. Refer to the `api-extensions.ts` file for a complete list of additions.
+
+## Customization
+
+The plugin can be further customized by extending the provided services and resolvers. Refer to the source code for more details on the available extension points.
+
+## Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request on the [GitHub repository](https://github.com/arrrrny/vendure-plugin-multi-channel-seller).
