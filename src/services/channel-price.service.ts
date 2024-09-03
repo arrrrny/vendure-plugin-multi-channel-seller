@@ -145,13 +145,21 @@ export class ChannelPriceService {
       where: {
         channelSeller: { channelId: ctx.channelId },
       },
-      relations: ["channelSeller"],
+      relations: [
+        "channelSeller",
+        "channelSeller.channel",
+        "channelSeller.seller",
+      ],
     });
   }
 
   async resolveAllPrices(ctx: RequestContext): Promise<ChannelPrice[]> {
     return this.connection.getRepository(ctx, ChannelPrice).find({
-      relations: ["channelSeller"],
+      relations: [
+        "channelSeller",
+        "channelSeller.channel",
+        "channelSeller.seller",
+      ],
     });
   }
 }

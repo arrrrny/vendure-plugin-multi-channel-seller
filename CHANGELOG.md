@@ -1,3 +1,6 @@
+# 0.2.0
+- Resolving nested channel and seller fields within the ChannelSeller
+
 # 0.1.3
 - Added ProductVariantEntityResolver to ShopApi Extension
 

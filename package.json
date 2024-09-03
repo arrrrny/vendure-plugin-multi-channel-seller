@@ -1,6 +1,6 @@
 {
   "name": "vendure-plugin-multi-channel-seller",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "description": "Allows channels to have multiple sellers, variants to have prices from different sellers on same channel",
   "author": "ARRRRNY",
   "repository": "https://github.com/arrrrny/vendure-plugin-multi-channel-seller",
